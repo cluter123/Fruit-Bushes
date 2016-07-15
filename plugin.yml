@@ -1,0 +1,5 @@
+main: me.cluter.fruittrees.Main
+name: FruitBushes
+version: 1.0
+author: cluter123
+depend: [cluterLib]
