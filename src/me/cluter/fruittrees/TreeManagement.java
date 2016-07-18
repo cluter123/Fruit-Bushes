@@ -198,8 +198,8 @@ public class TreeManagement {
 			}
 			}
 		}, 20);
+		if(bt == BushType.DONUT1 || bt == BushType.TACO) return;
 		if (num > 0) {
-			if(bt == BushType.DONUT1 || bt == BushType.TACO) return;
 			loc.getWorld().dropItemNaturally(loc, skull);
 			if(num == 1) {
 				if(Util.percentChance(0.005)) {

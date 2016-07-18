@@ -22,11 +22,13 @@ public enum BushType {
 	String type;
 	String url;
 	UUID uuid;
+	int level;
 	
-	private BushType(String name, String URL, String uuidd, int level) {
+	private BushType(String name, String URL, String uuidd, int lvl) {
 		type = name;
 		url = URL;
 		uuid = UUID.fromString(uuidd);
+		level = lvl;
 	}
 	
 	public String getType() {
@@ -37,6 +39,9 @@ public enum BushType {
 	}
 	public UUID getUUID() {
 		return uuid;
+	}
+	public int getLevel() {
+		return level;
 	}
 	
 	public static BushType fromString(String s) {
