@@ -197,7 +197,7 @@ public class TreeManagement {
 				loc.getBlock().setType(Material.AIR);
 			}
 			}
-		}, 20);
+		}, 10);
 		if(bt == BushType.DONUT1 || bt == BushType.TACO) return;
 		if (num > 0) {
 			loc.getWorld().dropItemNaturally(loc, skull);
