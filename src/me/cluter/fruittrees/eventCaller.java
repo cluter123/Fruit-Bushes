@@ -14,6 +14,8 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import com.farmlifemc.api.bushFormat;
+
 import me.cluter.lib.SkullManager;
 import net.md_5.bungee.api.ChatColor;
 
@@ -29,7 +31,7 @@ public class eventCaller implements Listener {
 		if (e.getBlock().getType() != Material.LEAVES)
 			return;
 		for (BushType bush : BushType.values()) {
-			if (e.getPlayer().getItemInHand().getItemMeta().getDisplayName().contains(bush.getType() + " Bush")) {
+			if (e.getPlayer().getItemInHand().getItemMeta().getDisplayName().contains(ChatColor.GREEN + bush.getType() + " Bush") || e.getPlayer().getItemInHand().getItemMeta().getDisplayName().contains("§a§o" + bush.getType() + " §r§2Bush")) {
 				if (pl.getWorldGuard().canBuild(e.getPlayer(), e.getBlock())) {
 					TreeManagement.spawnTree(e.getPlayer(), e.getBlock().getLocation(), bush, e);
 					break;

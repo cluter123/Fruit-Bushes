@@ -18,6 +18,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
+import com.farmlifemc.api.bushFormat;
+
 import me.cluter.lib.ParticleEffect;
 import me.cluter.lib.SkullManager;
 import me.cluter.lib.Util;
@@ -183,14 +185,16 @@ public class TreeManagement {
 			}
 		}
 		ItemStack skull = SkullManager.getCustomSkull(bt.getUUID(), bt.getURL(), num);
-		ItemStack seed = new ItemStack(Material.LEAVES, 1);
-		ItemMeta im = seed.getItemMeta();
-		im.setDisplayName(ChatColor.GREEN + bt.getType() + " Bush");
-		seed.setItemMeta(im);
 		SkullMeta sm = (SkullMeta) skull.getItemMeta();
 		sm.setDisplayName(ChatColor.GREEN + bt.getType());
 		skull.setItemMeta(sm);
-		loc.getWorld().dropItemNaturally(loc, seed);
+		if(bt == BushType.DONUT1 || bt == BushType.TACO) {
+			if(num > 0) {
+				loc.getWorld().dropItemNaturally(loc, skull);
+			}
+			return;
+		}
+		loc.getWorld().dropItemNaturally(loc, bushFormat.getBush(bt, 1));
 		Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInstance(), new Runnable() {
 			public void run() {
 				if(loc.getBlock().getType() == Material.FENCE) {
@@ -198,30 +202,29 @@ public class TreeManagement {
 			}
 			}
 		}, 10);
-		if(bt == BushType.DONUT1 || bt == BushType.TACO) return;
 		if (num > 0) {
 			loc.getWorld().dropItemNaturally(loc, skull);
 			if(num == 1) {
 				if(Util.percentChance(0.005)) {
-					loc.getWorld().dropItemNaturally(loc, seed);
+					loc.getWorld().dropItemNaturally(loc, bushFormat.getBush(bt, 1));
 				}
 				return;
 			}
 			if(num == 2) {
 				if(Util.percentChance(0.01)) {
-					loc.getWorld().dropItemNaturally(loc, seed);
+					loc.getWorld().dropItemNaturally(loc, bushFormat.getBush(bt, 1));
 				}
 				return;
 			}
 			if(num == 3) {
 				if(Util.percentChance(0.015)) {
-					loc.getWorld().dropItemNaturally(loc, seed);
+					loc.getWorld().dropItemNaturally(loc, bushFormat.getBush(bt, 1));
 				}
 				return;
 			}
 			if(num == 4) {
 				if(Util.percentChance(0.02)) {
-					loc.getWorld().dropItemNaturally(loc, seed);
+					loc.getWorld().dropItemNaturally(loc, bushFormat.getBush(bt, 1));
 					return;
 				}
 			}
