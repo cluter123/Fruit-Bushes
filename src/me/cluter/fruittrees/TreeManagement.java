@@ -15,7 +15,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
 import com.farmlifemc.api.bushFormat;
@@ -180,9 +179,12 @@ public class TreeManagement {
 				b.setType(Material.AIR);
 				}
 			}
-			if (b.getType() == Material.LEAVES || b.getType() == Material.FENCE) {
+			if (b.getType() == Material.LEAVES) {
 				b.setType(Material.AIR);
 			}
+		}
+		if(loc.getBlock().getType() == Material.FENCE) {
+			loc.getBlock().setType(Material.AIR);
 		}
 		ItemStack skull = SkullManager.getCustomSkull(bt.getUUID(), bt.getURL(), num);
 		SkullMeta sm = (SkullMeta) skull.getItemMeta();

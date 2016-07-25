@@ -3,3 +3,7 @@ name: FruitBushes
 version: 1.5
 author: cluter123
 depend: [cluterLib, FarmLifeAPI]
+
+commands:
+  sbush:
+    description: Spawn a bush!

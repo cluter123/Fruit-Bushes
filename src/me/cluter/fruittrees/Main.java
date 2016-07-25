@@ -7,6 +7,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 
+import me.cluter.fruittrees.commands.sbush;
+
 public class Main extends JavaPlugin {
 	static Main ins;
 
@@ -16,6 +18,7 @@ public class Main extends JavaPlugin {
 
 	public void onEnable() {
 		getServer().getPluginManager().registerEvents(new eventCaller(this), this);
+		getCommand("sbush").setExecutor(new sbush());
 		saveDefaultConfig();
 	}
 
@@ -28,7 +31,6 @@ public class Main extends JavaPlugin {
 		int ret = r.nextInt(60) + 120;
 		return ret;
 	}
-
 	public WorldGuardPlugin getWorldGuard() {
 		Plugin plugin = getServer().getPluginManager().getPlugin("WorldGuard");
 		if (plugin == null || !(plugin instanceof WorldGuardPlugin)) {
