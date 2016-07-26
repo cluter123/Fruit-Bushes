@@ -7,3 +7,6 @@ depend: [cluterLib, FarmLifeAPI]
 commands:
   sbush:
     description: Spawn a bush!
+permissions:
+  fruitbushes.spawn:
+    description: Allows you to spawn a bush.

@@ -72,6 +72,7 @@ public class TreeManagement {
 	}
 
 	public static void fruitAdd(Location loc, BushType bt) {
+		BushType bush = bt;
 		int t1 = Main.randomGen() * 20;
 		int t2 = t1 + (Main.randomGen() * 20);
 		int t3 = t2 + (Main.randomGen() * 20);
@@ -86,7 +87,7 @@ public class TreeManagement {
 					if (up1.getRelative(BlockFace.NORTH).getType() == Material.AIR) {
 						up1.getRelative(BlockFace.NORTH).setType(Material.SKULL);
 						Skull s = (Skull) up1.getRelative(BlockFace.NORTH).getState();
-						SkullManager.setCustomSkull(bt.uuid, bt.url, s);
+						SkullManager.setCustomSkull(bush.uuid, bush.url, s);
 						ParticleEffect.VILLAGER_HAPPY.display(1, 1, 1, 1, 10,
 								up1.getRelative(BlockFace.NORTH).getLocation(), 20);
 					} else
@@ -110,7 +111,7 @@ public class TreeManagement {
 						up2.getRelative(BlockFace.EAST).setData((byte) 5);
 						Skull s = (Skull) up2.getRelative(BlockFace.EAST).getState();
 						s.setRotation(BlockFace.EAST);
-						SkullManager.setCustomSkull(bt.uuid, bt.url, s);
+						SkullManager.setCustomSkull(bush.uuid, bush.url, s);
 						ParticleEffect.VILLAGER_HAPPY.display(1, 1, 1, 1, 10,
 								up2.getRelative(BlockFace.EAST).getLocation(), 20);
 					} else
@@ -132,7 +133,7 @@ public class TreeManagement {
 						up1.getRelative(BlockFace.SOUTH).setData((byte) 3);
 						Skull s = (Skull) up1.getRelative(BlockFace.SOUTH).getState();
 						s.setRotation(BlockFace.SOUTH);
-						SkullManager.setCustomSkull(bt.uuid, bt.url, s);
+						SkullManager.setCustomSkull(bush.uuid, bush.url, s);
 						ParticleEffect.VILLAGER_HAPPY.display(1, 1, 1, 1, 10,
 								up1.getRelative(BlockFace.SOUTH).getLocation(), 20);
 					} else
@@ -153,7 +154,7 @@ public class TreeManagement {
 						up2.getRelative(BlockFace.WEST).setData((byte) 4);
 						Skull s = (Skull) up2.getRelative(BlockFace.WEST).getState();
 						s.setRotation(BlockFace.WEST);
-						SkullManager.setCustomSkull(bt.uuid, bt.url, s);
+						SkullManager.setCustomSkull(bush.uuid, bush.url, s);
 						ParticleEffect.VILLAGER_HAPPY.display(1, 1, 1, 1, 10,
 								up2.getRelative(BlockFace.WEST).getLocation(), 20);
 
