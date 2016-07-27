@@ -8,6 +8,7 @@ import org.bukkit.Material;
 import org.bukkit.SkullType;
 import org.bukkit.block.Skull;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -24,10 +25,11 @@ public class eventCaller implements Listener {
 		pl = ins;
 	}
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.NORMAL)
 	public void onPlace(BlockPlaceEvent e) {
 		if (e.getBlock().getType() != Material.LEAVES)
 			return;
+		if(e.isCancelled()) return;
 		for (BushType bush : BushType.values()) {
 			if (e.getPlayer().getItemInHand().getItemMeta().getDisplayName().contains(ChatColor.GREEN + bush.getType() + " Bush") || e.getPlayer().getItemInHand().getItemMeta().getDisplayName().contains("§a§o" + bush.getType() + " §r§2Bush")) {
 				if (pl.getWorldGuard().canBuild(e.getPlayer(), e.getBlock())) {

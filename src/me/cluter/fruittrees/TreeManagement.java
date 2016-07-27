@@ -72,7 +72,6 @@ public class TreeManagement {
 	}
 
 	public static void fruitAdd(Location loc, BushType bt) {
-		BushType bush = bt;
 		int t1 = Main.randomGen() * 20;
 		int t2 = t1 + (Main.randomGen() * 20);
 		int t3 = t2 + (Main.randomGen() * 20);
@@ -87,7 +86,7 @@ public class TreeManagement {
 					if (up1.getRelative(BlockFace.NORTH).getType() == Material.AIR) {
 						up1.getRelative(BlockFace.NORTH).setType(Material.SKULL);
 						Skull s = (Skull) up1.getRelative(BlockFace.NORTH).getState();
-						SkullManager.setCustomSkull(bush.uuid, bush.url, s);
+						SkullManager.setCustomSkull(bt.getUUID(), bt.getURL(), s);
 						ParticleEffect.VILLAGER_HAPPY.display(1, 1, 1, 1, 10,
 								up1.getRelative(BlockFace.NORTH).getLocation(), 20);
 					} else
@@ -111,7 +110,7 @@ public class TreeManagement {
 						up2.getRelative(BlockFace.EAST).setData((byte) 5);
 						Skull s = (Skull) up2.getRelative(BlockFace.EAST).getState();
 						s.setRotation(BlockFace.EAST);
-						SkullManager.setCustomSkull(bush.uuid, bush.url, s);
+						SkullManager.setCustomSkull(bt.getUUID(), bt.getURL(), s);
 						ParticleEffect.VILLAGER_HAPPY.display(1, 1, 1, 1, 10,
 								up2.getRelative(BlockFace.EAST).getLocation(), 20);
 					} else
@@ -133,7 +132,7 @@ public class TreeManagement {
 						up1.getRelative(BlockFace.SOUTH).setData((byte) 3);
 						Skull s = (Skull) up1.getRelative(BlockFace.SOUTH).getState();
 						s.setRotation(BlockFace.SOUTH);
-						SkullManager.setCustomSkull(bush.uuid, bush.url, s);
+						SkullManager.setCustomSkull(bt.getUUID(), bt.getURL(), s);
 						ParticleEffect.VILLAGER_HAPPY.display(1, 1, 1, 1, 10,
 								up1.getRelative(BlockFace.SOUTH).getLocation(), 20);
 					} else
@@ -154,7 +153,7 @@ public class TreeManagement {
 						up2.getRelative(BlockFace.WEST).setData((byte) 4);
 						Skull s = (Skull) up2.getRelative(BlockFace.WEST).getState();
 						s.setRotation(BlockFace.WEST);
-						SkullManager.setCustomSkull(bush.uuid, bush.url, s);
+						SkullManager.setCustomSkull(bt.getUUID(), bt.getURL(), s);
 						ParticleEffect.VILLAGER_HAPPY.display(1, 1, 1, 1, 10,
 								up2.getRelative(BlockFace.WEST).getLocation(), 20);
 
@@ -167,7 +166,8 @@ public class TreeManagement {
 
 	}
 
-	public static void breakTree(Location loc, BushType bt) {
+	public static void breakTree(Location loc, BushType bt, Player p) {
+		boolean vip = (p.hasPermission("vip.vip")) ? true : false;
 		Location pos1 = loc.clone().add(1, 1, 1);
 		Location pos2 = loc.clone().add(-1, 2, -1);
 		List<Block> blocks = blockManager.getBlocks(pos1, pos2);
@@ -193,11 +193,18 @@ public class TreeManagement {
 		skull.setItemMeta(sm);
 		if(bt == BushType.DONUT1 || bt == BushType.TACO) {
 			if(num > 0) {
+				if(vip) {
+					p.getInventory().addItem(skull);
+					return;
+				}
 				loc.getWorld().dropItemNaturally(loc, skull);
 			}
 			return;
 		}
-		loc.getWorld().dropItemNaturally(loc, bushFormat.getBush(bt, 1));
+		if(vip) {
+			p.getInventory().addItem(bushFormat.getBush(bt, 1));
+		} else {
+		loc.getWorld().dropItemNaturally(loc, bushFormat.getBush(bt, 1)); }
 		Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInstance(), new Runnable() {
 			public void run() {
 				if(loc.getBlock().getType() == Material.FENCE) {
@@ -206,27 +213,46 @@ public class TreeManagement {
 			}
 		}, 10);
 		if (num > 0) {
-			loc.getWorld().dropItemNaturally(loc, skull);
+			if(vip) {
+				p.getInventory().addItem(skull);
+			} else {
+			loc.getWorld().dropItemNaturally(loc, skull);}
 			if(num == 1) {
 				if(Util.percentChance(0.005)) {
+					if(vip) {
+						p.getInventory().addItem(bushFormat.getBush(bt, 1));
+						return;
+					}
 					loc.getWorld().dropItemNaturally(loc, bushFormat.getBush(bt, 1));
 				}
 				return;
 			}
 			if(num == 2) {
 				if(Util.percentChance(0.01)) {
+					if(vip) {
+						p.getInventory().addItem(bushFormat.getBush(bt, 1));
+						return;
+					}
 					loc.getWorld().dropItemNaturally(loc, bushFormat.getBush(bt, 1));
 				}
 				return;
 			}
 			if(num == 3) {
 				if(Util.percentChance(0.015)) {
+					if(vip) {
+						p.getInventory().addItem(bushFormat.getBush(bt, 1));
+						return;
+					}
 					loc.getWorld().dropItemNaturally(loc, bushFormat.getBush(bt, 1));
 				}
 				return;
 			}
 			if(num == 4) {
 				if(Util.percentChance(0.02)) {
+					if(vip) {
+						p.getInventory().addItem(bushFormat.getBush(bt, 1));
+						return;
+					}
 					loc.getWorld().dropItemNaturally(loc, bushFormat.getBush(bt, 1));
 					return;
 				}
@@ -247,7 +273,7 @@ public class TreeManagement {
 				e.setCancelled(true);
 				e.getBlock().getDrops().clear();
 				e.getBlock().setType(Material.AIR);
-				breakTree(b.getLocation(), loc.get(ss));
+				breakTree(b.getLocation(), loc.get(ss), e.getPlayer());
 				loc.remove(locc);
 				List<String> sss = new ArrayList<String>();
 				for (String stt : loc.keySet()) {

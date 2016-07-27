@@ -7,6 +7,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 
+import me.cluter.fruittrees.commands.consolegivebush;
 import me.cluter.fruittrees.commands.sbush;
 
 public class Main extends JavaPlugin {
@@ -19,6 +20,7 @@ public class Main extends JavaPlugin {
 	public void onEnable() {
 		getServer().getPluginManager().registerEvents(new eventCaller(this), this);
 		getCommand("sbush").setExecutor(new sbush());
+		getCommand("consolegivebush").setExecutor(new consolegivebush());
 		saveDefaultConfig();
 	}
 
